@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class DishDAO {
+public class OrderDAO {
 
 	private Connection connection;
 
-	public DishDAO() throws Exception {
+	public OrderDAO() throws Exception {
 		Properties prop = new Properties();
 		FileInputStream fileStream = new FileInputStream("database.properties");
 		prop.load(fileStream);
@@ -25,16 +25,16 @@ public class DishDAO {
 		connection = DriverManager.getConnection(dburl, username, password);
 	}
 
-	public List<Dish> getAllDishes() throws Exception {
-		List<Dish> ret = new ArrayList<Dish>();
+	public List<Order> getAllOrders() throws Exception {
+		List<Order> ret = new ArrayList<Order>();
 		PreparedStatement statement = null;
 		ResultSet result = null;
 
 		try {
-			statement = connection.prepareStatement("select * from restaurant_order_system.dishes");
+			statement = connection.prepareStatement("select * from restaurant_order_system.orders");
 			result = statement.executeQuery();
 			while (result.next()) {
-				ret.add(convertToDish(result));
+				ret.add(convertToOrder(result));
 			}
 		} finally {
 			if (statement != null) {
@@ -47,18 +47,21 @@ public class DishDAO {
 		return ret;
 	}
 
-	public List<Dish> getDishesForOrder(int orderId) throws Exception {
-		List<Dish> ret = new ArrayList<Dish>();
+	private Order convertToOrder(ResultSet result) throws Exception {
+		return new Order(result.getInt("id"), result.getInt("table_id"), result.getString("special_instruction"));
+	}
+
+	public List<Order> getOrdersForTable(int parseInt) throws Exception {
+		List<Order> ret = new ArrayList<Order>();
 		PreparedStatement statement = null;
 		ResultSet result = null;
 
 		try {
-			statement = connection.prepareStatement(
-					"select * from restaurant_order_system.dishes o join restaurant_order_system.order_dishes d on o.id = d.dish_id where order_id = ?");
-			statement.setInt(1, orderId);
+			statement = connection.prepareStatement("select * from restaurant_order_system.orders where table_id = ?");
+			statement.setInt(1, parseInt);
 			result = statement.executeQuery();
 			while (result.next()) {
-				ret.add(convertToDish(result));
+				ret.add(convertToOrder(result));
 			}
 		} finally {
 			if (statement != null) {
@@ -69,10 +72,7 @@ public class DishDAO {
 			}
 		}
 		return ret;
-	}
 
-	private Dish convertToDish(ResultSet result) throws Exception {
-		return new Dish(result.getString("name"), result.getInt("id"), result.getFloat("price"));
 	}
 
 }

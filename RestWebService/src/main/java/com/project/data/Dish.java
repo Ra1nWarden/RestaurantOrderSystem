@@ -1,11 +1,11 @@
 package com.project.data;
 
 public class Dish {
-	
+
 	private String name;
 	private int id;
 	private float price;
-	
+
 	public String getName() {
 		return name;
 	}
