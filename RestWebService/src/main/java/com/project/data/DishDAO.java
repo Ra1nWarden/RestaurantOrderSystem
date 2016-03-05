@@ -47,8 +47,8 @@ public class DishDAO {
 		return ret;
 	}
 
-	public List<Dish> getDishesForOrder(int orderId) throws Exception {
-		List<Dish> ret = new ArrayList<Dish>();
+	public List<OrderedDish> getDishesForOrder(int orderId) throws Exception {
+		List<OrderedDish> ret = new ArrayList<OrderedDish>();
 		PreparedStatement statement = null;
 		ResultSet result = null;
 
@@ -58,7 +58,7 @@ public class DishDAO {
 			statement.setInt(1, orderId);
 			result = statement.executeQuery();
 			while (result.next()) {
-				ret.add(convertToDish(result));
+				ret.add(convertToOrderedDish(result));
 			}
 		} finally {
 			if (statement != null) {
@@ -73,6 +73,11 @@ public class DishDAO {
 
 	private Dish convertToDish(ResultSet result) throws Exception {
 		return new Dish(result.getString("name"), result.getInt("id"), result.getFloat("price"));
+	}
+
+	private OrderedDish convertToOrderedDish(ResultSet result) throws Exception {
+		return new OrderedDish(result.getString("name"), result.getInt("id"), result.getFloat("price"),
+				OrderedDish.convertStringToStatus(result.getString("status")));
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.project.data.Dish;
 import com.project.data.DishDAO;
+import com.project.data.OrderedDish;
 
 @Path("dishes")
 public class DishService {
@@ -37,7 +38,7 @@ public class DishService {
 	@GET
 	@Path("order/{order_id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Dish> getDishesForOrder(@PathParam("order_id") String orderId) {
+	public List<OrderedDish> getDishesForOrder(@PathParam("order_id") String orderId) {
 		try {
 			return dao.getDishesForOrder(Integer.parseInt(orderId));
 		} catch (Exception e) {
