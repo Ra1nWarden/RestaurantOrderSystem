@@ -4,9 +4,16 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <fragment
-        android:name="com.project.wifiordersystem.ui.OrderListFragment"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content">
+    </ListView>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
 
 </LinearLayout>
