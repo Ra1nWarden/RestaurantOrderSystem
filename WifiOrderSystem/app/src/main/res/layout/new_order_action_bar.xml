@@ -4,18 +4,18 @@
                 android:layout_height="match_parent">
 
     <ImageButton
-        android:id="@+id/settings_button"
         android:layout_width="@dimen/button_size"
         android:layout_height="@dimen/button_size"
         android:layout_alignParentLeft="true"
         android:background="@android:color/transparent"
-        android:src="@mipmap/ic_brightness_7_white_24dp"/>
+        android:onClick="cancelOrder"
+        android:src="@mipmap/ic_clear_white_24dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="@string/app_name"
+        android:text="@string/new_order_title"
         android:textColor="@android:color/white"/>
 
     <ImageButton
@@ -23,7 +23,7 @@
         android:layout_height="@dimen/button_size"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:onClick="startNewOrder"
-        android:src="@mipmap/ic_add_white_24dp"/>
+        android:src="@mipmap/ic_done_white_24dp"/>
+
 
 </RelativeLayout>

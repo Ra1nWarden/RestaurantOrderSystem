@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * A POJO for displaying at home activity.
  */
-public class Order {
+public final class Order {
 
     private int id;
     private int tableId;

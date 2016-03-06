@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WiFi点餐系统</string>
+    <string name="new_order_title">新的订单</string>
 </resources>

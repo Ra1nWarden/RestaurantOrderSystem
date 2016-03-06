@@ -7,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.project.wifiordersystem.R;
-import com.project.wifiordersystem.data.OrderListAdapter;
+import com.project.wifiordersystem.data.DishListAdapter;
 
 /**
- * Order list shown on the home view.
+ * A list fragment displaying all dishes.
  */
-public final class OrderListFragment extends ListFragment {
+public final class DishListFragment extends ListFragment {
 
-    private OrderListAdapter adapter;
+    private DishListAdapter adapter;
 
 
     @Override
@@ -27,7 +27,7 @@ public final class OrderListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        adapter = new OrderListAdapter(getActivity());
+        adapter = new DishListAdapter(getActivity());
         getListView().setAdapter(adapter);
     }
 
@@ -36,4 +36,5 @@ public final class OrderListFragment extends ListFragment {
         super.onResume();
         adapter.loadData();
     }
+
 }

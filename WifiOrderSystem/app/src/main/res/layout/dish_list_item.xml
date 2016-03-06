@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/order_item_height">
+                android:layout_height="@dimen/dish_item_height"
+                android:orientation="vertical">
 
     <TextView
-        android:id="@+id/order_id_label"
+        android:id="@+id/dish_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -12,20 +13,19 @@
         android:paddingLeft="@dimen/list_item_padding"/>
 
     <TextView
-        android:id="@+id/total_price_label"
+        android:id="@+id/dish_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/last_modification_label"
+        android:layout_toLeftOf="@+id/dish_checkbox"
         android:paddingRight="@dimen/price_padding"/>
 
-    <TextView
-        android:id="@id/last_modification_label"
+    <CheckBox
+        android:id="@id/dish_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingRight="@dimen/list_item_padding"
-        android:text="date"/>
+        android:paddingRight="@dimen/list_item_padding"/>
 
 </RelativeLayout>

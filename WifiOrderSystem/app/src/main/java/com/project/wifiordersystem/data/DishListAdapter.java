@@ -1,13 +1,13 @@
 package com.project.wifiordersystem.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -24,28 +24,27 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 
 /**
- * Adapter for order list in HomeActivity.
+ * Adapter for dish list.
  */
-public final class OrderListAdapter extends BaseAdapter {
+public final class DishListAdapter extends BaseAdapter {
 
-    private static final String TAG = "OrderListAdapter";
-    private static final String TABLE_ID_KEY = "table_id";
+    private static final String TAG = "DishListAdapter";
     private final Context context;
-    private ArrayList<Order> orders;
+    private ArrayList<Dish> dishes;
 
-    public OrderListAdapter(Context context) {
+    public DishListAdapter(Context context) {
         this.context = context;
-        orders = new ArrayList<>();
+        dishes = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return orders.size();
+        return dishes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return orders.get(position);
+        return dishes.get(position);
     }
 
     @Override
@@ -59,33 +58,43 @@ public final class OrderListAdapter extends BaseAdapter {
                 .LAYOUT_INFLATER_SERVICE);
         View rowView = convertView;
         if (rowView == null) {
-            rowView = inflater.inflate(R.layout.order_list_item, parent, false);
+            rowView = inflater.inflate(R.layout.dish_list_item, parent, false);
             final ViewHolder viewHolder = new ViewHolder();
-            viewHolder.orderId = (TextView) rowView.findViewById(R.id.order_id_label);
-            viewHolder.totalPrice = (TextView) rowView.findViewById(R.id.total_price_label);
-            viewHolder.lastModified = (TextView) rowView.findViewById(R.id.last_modification_label);
+            viewHolder.priceText = (TextView) rowView.findViewById(R.id.dish_price);
+            viewHolder.nameText = (TextView) rowView.findViewById(R.id.dish_name);
+            viewHolder.checkBox = (CheckBox) rowView.findViewById(R.id.dish_checkbox);
+            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton
+                    .OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Dish dish = (Dish) viewHolder.checkBox.getTag();
+                    dish.setSelected(buttonView.isChecked());
+                }
+            });
             rowView.setTag(viewHolder);
+            viewHolder.checkBox.setTag(getItem(position));
+        } else {
+            ((ViewHolder) rowView.getTag()).checkBox.setTag(getItem(position));
         }
-        Order order = (Order) getItem(position);
         ViewHolder holder = (ViewHolder) rowView.getTag();
-        holder.orderId.setText(Integer.toString(order.getId()));
-        holder.totalPrice.setText("0");
-        holder.lastModified.setText("0000-00-00 00:00");
+        Dish dish = (Dish) getItem(position);
+        holder.nameText.setText(dish.getName());
+        holder.priceText.setText(Float.toString(dish.getPrice()));
+        holder.checkBox.setChecked(dish.isSelected());
         return rowView;
     }
 
     public void loadData() {
-        orders.clear();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int tableId = preferences.getInt(TABLE_ID_KEY, 0);
+        dishes.clear();
         Volley.newRequestQueue(context).add(new JsonArrayRequest(RESTClient.getInstance()
-                .getOrderUrlForTable(3), new Response.Listener<JSONArray>() {
+                .getAllDishes(), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new GsonBuilder().create();
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        orders.add(gson.fromJson(response.get(i).toString(), Order.class));
+                        dishes.add(gson.fromJson(response.get(i).toString(), Dish.class));
                     } catch (Exception e) {
                         if (Log.isLoggable(TAG, Log.ERROR)) {
                             Log.e(TAG, "Error in parsing json with gson.");
@@ -107,8 +116,8 @@ public final class OrderListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        protected TextView orderId;
-        protected TextView totalPrice;
-        protected TextView lastModified;
+        protected TextView nameText;
+        protected TextView priceText;
+        protected CheckBox checkBox;
     }
 }
