@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">WiFi点餐系统</string>
     <string name="new_order_title">新的订单</string>
+    <string name="settings_title">设置</string>
+    <string name="version">版本</string>
+    <string name="table_id">桌号</string>
+    <string name="set_table_id_title">设置桌号</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
 </resources>

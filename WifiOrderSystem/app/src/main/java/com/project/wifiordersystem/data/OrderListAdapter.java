@@ -28,8 +28,8 @@ import java.util.ArrayList;
  */
 public final class OrderListAdapter extends BaseAdapter {
 
+    public static final String TABLE_ID_KEY = "table_id";
     private static final String TAG = "OrderListAdapter";
-    private static final String TABLE_ID_KEY = "table_id";
     private final Context context;
     private ArrayList<Order> orders;
 
@@ -77,9 +77,9 @@ public final class OrderListAdapter extends BaseAdapter {
     public void loadData() {
         orders.clear();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int tableId = preferences.getInt(TABLE_ID_KEY, 0);
+        int tableId = preferences.getInt(TABLE_ID_KEY, 3);
         Volley.newRequestQueue(context).add(new JsonArrayRequest(RESTClient.getInstance()
-                .getOrderUrlForTable(3), new Response.Listener<JSONArray>() {
+                .getOrderUrlForTable(tableId), new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Gson gson = new GsonBuilder().create();

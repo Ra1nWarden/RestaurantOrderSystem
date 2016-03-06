@@ -20,7 +20,7 @@ public final class OrderListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.order_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.list_fragment, container, false);
         return view;
     }
 
