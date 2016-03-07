@@ -5,11 +5,21 @@ public class Order {
 	private int id;
 	private int tableId;
 	private String specialInstruction;
+	private long timeCreated;
 
-	public Order(int id, int tableId, String specialInstruction) {
+	public Order(int id, int tableId, String specialInstruction, long timeCreated) {
 		this.id = id;
 		this.tableId = tableId;
 		this.specialInstruction = specialInstruction;
+		this.timeCreated = timeCreated;
+	}
+
+	public long getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(long timeCreated) {
+		this.timeCreated = timeCreated;
 	}
 
 	public int getId() {

@@ -46,9 +46,32 @@ public class OrderDAO {
 		}
 		return ret;
 	}
-
+	
+	public float getTotalPriceForOrderId(int id) throws Exception {
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			statement = connection.prepareStatement("select sum(price) from dishes join order_dishes on dishes.id = order_dishes.dish_id where order_id = ?");
+			statement.setInt(1, id);
+			result = statement.executeQuery();
+			if(result.next()) {
+				return result.getFloat("sum(price)");
+			} else {
+				return 0.0f;
+			}
+		} finally {
+			if(statement != null) {
+				statement.close();
+			}
+			if(result != null) {
+				result.close();
+			}
+		}
+	}
+ 
 	private Order convertToOrder(ResultSet result) throws Exception {
-		return new Order(result.getInt("id"), result.getInt("table_id"), result.getString("special_instruction"));
+		return new Order(result.getInt("id"), result.getInt("table_id"), result.getString("special_instruction"),
+				result.getLong("time_created"));
 	}
 
 	public List<Order> getOrdersForTable(int parseInt) throws Exception {

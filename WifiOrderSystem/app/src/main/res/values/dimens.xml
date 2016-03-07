@@ -10,4 +10,5 @@
     <dimen name="table_id_field_width">20dp</dimen>
     <dimen name="order_detail_header_height">80dp</dimen>
     <dimen name="ordered_dish_list_item_height">50dp</dimen>
+    <dimen name="total_price_height">80dp</dimen>
 </resources>
