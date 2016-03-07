@@ -23,6 +23,7 @@
         android:layout_height="@dimen/button_size"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
+        android:onClick="submitOrder"
         android:src="@mipmap/ic_done_white_24dp"/>
 
 

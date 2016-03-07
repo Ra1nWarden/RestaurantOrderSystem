@@ -10,4 +10,8 @@
     <string name="order_details_title">订单详情</string>
     <string name="order_id">订单号</string>
     <string name="total_price">总价</string>
+    <string name="special_instruction">备注</string>
+    <string name="submit_order_title">提交订单</string>
+    <string name="submit_success">提交成功</string>
+    <string name="submit_failure">提交失败</string>
 </resources>

@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.project.wifiordersystem.R;
+import com.project.wifiordersystem.ui.DishListFragment;
 
 /**
  * An activity that allows the user to create a new order.
@@ -17,6 +17,7 @@ import com.project.wifiordersystem.R;
 public final class NewOrderActivity extends AppCompatActivity {
 
     private static final String TAG = "NewOrderActivity";
+    private DishListFragment dishFragment;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -44,5 +45,17 @@ public final class NewOrderActivity extends AppCompatActivity {
 
     public void cancelOrder(View v) {
         finish();
+    }
+
+    public void submitOrder(View v) {
+        try {
+            DishListFragment f = (DishListFragment) getSupportFragmentManager().findFragmentByTag
+                    ("dishesFragment");
+            f.submit();
+        } catch (ClassCastException e) {
+            if (Log.isLoggable(TAG, Log.ERROR)) {
+                Log.e(TAG, "Error in casting to DishListFragment");
+            }
+        }
     }
 }

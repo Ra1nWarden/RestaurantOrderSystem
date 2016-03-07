@@ -9,11 +9,15 @@ import android.view.ViewGroup;
 import com.project.wifiordersystem.R;
 import com.project.wifiordersystem.data.DishListAdapter;
 
+import java.util.List;
+
 /**
  * A list fragment displaying all dishes.
  */
 public final class DishListFragment extends ListFragment {
 
+
+    private static final String DIALOG_TAG = "reviewDialog";
     private DishListAdapter adapter;
 
 
@@ -35,6 +39,16 @@ public final class DishListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         adapter.loadData();
+    }
+
+    public void submit() {
+        List<Integer> selectedDishes = adapter.getAllSelectedId();
+        float totalPrice = adapter.getTotalPrice();
+        if (!selectedDishes.isEmpty()) {
+            SpecialInstructionDialogFragment f = SpecialInstructionDialogFragment.getInstance
+                    (selectedDishes, totalPrice);
+            f.show(getActivity().getSupportFragmentManager(), DIALOG_TAG);
+        }
     }
 
 }

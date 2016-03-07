@@ -60,4 +60,11 @@ public final class RESTClient {
         return sb.toString();
     }
 
+    public String getPostOrderUrl() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(BASE_URL);
+        sb.append(ORDERS_URL);
+        return sb.toString();
+    }
+
 }

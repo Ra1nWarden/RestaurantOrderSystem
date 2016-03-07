@@ -46,29 +46,30 @@ public class OrderDAO {
 		}
 		return ret;
 	}
-	
+
 	public float getTotalPriceForOrderId(int id) throws Exception {
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		try {
-			statement = connection.prepareStatement("select sum(price) from dishes join order_dishes on dishes.id = order_dishes.dish_id where order_id = ?");
+			statement = connection.prepareStatement(
+					"select sum(price) from dishes join order_dishes on dishes.id = order_dishes.dish_id where order_id = ?");
 			statement.setInt(1, id);
 			result = statement.executeQuery();
-			if(result.next()) {
+			if (result.next()) {
 				return result.getFloat("sum(price)");
 			} else {
 				return 0.0f;
 			}
 		} finally {
-			if(statement != null) {
+			if (statement != null) {
 				statement.close();
 			}
-			if(result != null) {
+			if (result != null) {
 				result.close();
 			}
 		}
 	}
- 
+
 	private Order convertToOrder(ResultSet result) throws Exception {
 		return new Order(result.getInt("id"), result.getInt("table_id"), result.getString("special_instruction"),
 				result.getLong("time_created"));
@@ -96,6 +97,47 @@ public class OrderDAO {
 		}
 		return ret;
 
+	}
+
+	public void postOrder(NewOrder newOrder) throws Exception {
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			if (newOrder.getSpecialInstruction() == null) {
+				statement = connection
+						.prepareStatement("insert into restaurant_order_system.orders (table_id) values (?)");
+				statement.setInt(1, newOrder.getTableId());
+			} else {
+				statement = connection.prepareStatement(
+						"insert into restaurant_order_system.orders (table_id, special_instruction) values (?, ?)");
+				statement.setInt(1, newOrder.getTableId());
+				statement.setString(2, newOrder.getSpecialInstruction());
+			}
+			statement.execute();
+			statement.close();
+			statement = connection.prepareStatement("select LAST_INSERT_ID()");
+			result = statement.executeQuery();
+			if (result.next()) {
+				int id = result.getInt(1);
+				for (int each : newOrder.getDishIds()) {
+					statement = connection.prepareStatement(
+							"insert into restaurant_order_system.order_dishes (order_id, dish_id) values (?, ?)");
+					statement.setInt(1, id);
+					statement.setInt(2, each);
+					if (statement.executeUpdate() == 0) {
+						throw new IllegalArgumentException();
+					}
+				}
+			}
+
+		} finally {
+			if (statement != null) {
+				statement.close();
+			}
+			if (result != null) {
+				result.close();
+			}
+		}
 	}
 
 }

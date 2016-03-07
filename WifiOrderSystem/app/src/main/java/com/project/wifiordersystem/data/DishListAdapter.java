@@ -22,6 +22,7 @@ import com.project.wifiordersystem.network.RESTClient;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter for dish list.
@@ -113,6 +114,26 @@ public final class DishListAdapter extends BaseAdapter {
                 }
             }
         }));
+    }
+
+    public List<Integer> getAllSelectedId() {
+        ArrayList<Integer> ret = new ArrayList<>();
+        for (Dish each : dishes) {
+            if (each.isSelected()) {
+                ret.add(each.getId());
+            }
+        }
+        return ret;
+    }
+
+    public float getTotalPrice() {
+        float ans = 0.0f;
+        for (Dish each : dishes) {
+            if (each.isSelected()) {
+                ans += each.getPrice();
+            }
+        }
+        return ans;
     }
 
     static class ViewHolder {
