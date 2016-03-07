@@ -10,6 +10,7 @@ public final class RESTClient {
     private static final String ORDER_URL = "/order";
     private static final String TABLE_URL = "/table";
     private static final String DISHES_URL = "/dishes";
+    private static final String PRICE_URL = "/price";
     private static RESTClient instance;
 
     private RESTClient() {
@@ -44,6 +45,16 @@ public final class RESTClient {
         sb.append(BASE_URL);
         sb.append(DISHES_URL);
         sb.append(ORDER_URL);
+        sb.append("/");
+        sb.append(id);
+        return sb.toString();
+    }
+
+    public String getTotalPriceForId(int id) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(BASE_URL);
+        sb.append(ORDERS_URL);
+        sb.append(PRICE_URL);
         sb.append("/");
         sb.append(id);
         return sb.toString();

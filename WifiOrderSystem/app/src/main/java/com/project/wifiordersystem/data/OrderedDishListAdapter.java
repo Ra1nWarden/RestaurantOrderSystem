@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,12 +30,14 @@ public final class OrderedDishListAdapter extends BaseAdapter {
     private static final String TAG = "OrderedDishListAdapter";
     private final Context context;
     private final int orderId;
+    private final TextView totalPrice;
     private ArrayList<OrderedDish> orderedDishs;
 
 
-    public OrderedDishListAdapter(Context context, int orderId) {
+    public OrderedDishListAdapter(Context context, int orderId, TextView totalPrice) {
         this.context = context;
         this.orderId = orderId;
+        this.totalPrice = totalPrice;
         orderedDishs = new ArrayList<>();
     }
 
@@ -103,7 +106,22 @@ public final class OrderedDishListAdapter extends BaseAdapter {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (Log.isLoggable(TAG, Log.ERROR)) {
-                    Log.e(TAG, "Error in volley.");
+                    Log.e(TAG, "Error in volley for ordered dish list.");
+                }
+            }
+        }));
+        Volley.newRequestQueue(context).add(new StringRequest(RESTClient.getInstance()
+                .getTotalPriceForId(orderId), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                totalPrice.setText(response + "元");
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (Log.isLoggable(TAG, Log.ERROR)) {
+                    Log.e(TAG, "Error in volley for total price.");
                 }
             }
         }));
