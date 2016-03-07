@@ -14,7 +14,7 @@ import com.project.wifiordersystem.R;
 /**
  * Adapter for settings list.
  */
-public class SettingsAdapter extends BaseAdapter {
+public final class SettingsAdapter extends BaseAdapter {
 
     private final Context context;
 

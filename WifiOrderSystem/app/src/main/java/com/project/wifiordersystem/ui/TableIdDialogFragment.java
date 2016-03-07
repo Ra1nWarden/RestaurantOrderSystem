@@ -17,7 +17,7 @@ import com.project.wifiordersystem.data.OrderListAdapter;
 /**
  * A dialog fragment for setting table id.
  */
-public class TableIdDialogFragment extends DialogFragment {
+public final class TableIdDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstance) {

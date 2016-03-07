@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".activities.NewOrderActivity"/>
         <activity android:name=".activities.SettingsActivity"/>
-
+        <activity android:name=".activities.OrderDetailActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

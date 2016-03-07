@@ -1,16 +1,32 @@
 package com.project.wifiordersystem.data;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  * A POJO for displaying at home activity.
  */
-public final class Order {
+public final class Order implements Serializable {
 
     private int id;
     private int tableId;
-//    private float totalPrice;
-//    private Date time;
+    private long timeCreated;
+    private String specialInstruction;
+
+    public String getSpecialInstruction() {
+        return specialInstruction;
+    }
+
+    public void setSpecialInstruction(String specialInstruction) {
+        this.specialInstruction = specialInstruction;
+    }
+
+    public long getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(long timeCreated) {
+        this.timeCreated = timeCreated;
+    }
 
     public int getId() {
         return id;
@@ -28,19 +44,4 @@ public final class Order {
         this.tableId = tableId;
     }
 
-//    public float getTotalPrice() {
-//        return totalPrice;
-//    }
-//
-//    public void setTotalPrice(float totalPrice) {
-//        this.totalPrice = totalPrice;
-//    }
-//
-//    public Date getTime() {
-//        return time;
-//    }
-//
-//    public void setTime(Date time) {
-//        this.time = time;
-//    }
 }

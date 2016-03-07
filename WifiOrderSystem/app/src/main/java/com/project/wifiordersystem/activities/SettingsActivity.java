@@ -13,7 +13,7 @@ import com.project.wifiordersystem.R;
 /**
  * An activity for setting table id.
  */
-public class SettingsActivity extends AppCompatActivity {
+public final class SettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "SettingsActivity";
 

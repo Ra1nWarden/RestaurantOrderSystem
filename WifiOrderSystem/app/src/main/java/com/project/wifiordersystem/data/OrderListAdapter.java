@@ -3,6 +3,7 @@ package com.project.wifiordersystem.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,15 +63,18 @@ public final class OrderListAdapter extends BaseAdapter {
             rowView = inflater.inflate(R.layout.order_list_item, parent, false);
             final ViewHolder viewHolder = new ViewHolder();
             viewHolder.orderId = (TextView) rowView.findViewById(R.id.order_id_label);
-            viewHolder.totalPrice = (TextView) rowView.findViewById(R.id.total_price_label);
-            viewHolder.lastModified = (TextView) rowView.findViewById(R.id.last_modification_label);
+            viewHolder.specialInstruction = (TextView) rowView.findViewById(R.id
+                    .special_instruction);
+            viewHolder.timeCreated = (TextView) rowView.findViewById(R.id.last_modification_label);
             rowView.setTag(viewHolder);
         }
         Order order = (Order) getItem(position);
         ViewHolder holder = (ViewHolder) rowView.getTag();
         holder.orderId.setText(Integer.toString(order.getId()));
-        holder.totalPrice.setText("0");
-        holder.lastModified.setText("0000-00-00 00:00");
+        holder.specialInstruction.setText(order.getSpecialInstruction());
+        DateFormat dateFormat = new DateFormat();
+        holder.timeCreated.setText(DateFormat.format("yyyy-MM-dd hh:mm:ss", order.getTimeCreated
+                () * 1000));
         return rowView;
     }
 
@@ -108,7 +112,7 @@ public final class OrderListAdapter extends BaseAdapter {
 
     static class ViewHolder {
         protected TextView orderId;
-        protected TextView totalPrice;
-        protected TextView lastModified;
+        protected TextView specialInstruction;
+        protected TextView timeCreated;
     }
 }

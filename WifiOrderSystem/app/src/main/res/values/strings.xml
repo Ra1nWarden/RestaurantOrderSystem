@@ -7,4 +7,6 @@
     <string name="set_table_id_title">设置桌号</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="order_details_title">订单详情</string>
+    <string name="order_id">订单号</string>
 </resources>

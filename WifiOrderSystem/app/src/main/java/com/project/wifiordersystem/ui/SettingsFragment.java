@@ -16,7 +16,7 @@ import com.project.wifiordersystem.data.SettingsAdapter;
 /**
  * Settings view.
  */
-public class SettingsFragment extends ListFragment implements SharedPreferences
+public final class SettingsFragment extends ListFragment implements SharedPreferences
         .OnSharedPreferenceChangeListener {
 
     private static final String DIALOG_TAG = "dialog";
