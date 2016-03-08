@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.project.wifiordersystem.R;
 import com.project.wifiordersystem.data.Order;
+import com.project.wifiordersystem.ui.CreditCardInputDialogFragment;
 
 /**
  * An activity for showing order details
@@ -19,6 +20,7 @@ import com.project.wifiordersystem.data.Order;
 public final class OrderDetailActivity extends AppCompatActivity {
 
     public static final String ORDER_KEY = "order";
+    private static final String PAY_ORDER_TAG = "payOrder";
     private static final String TAG = "OrderDetailActivity";
     private Order order;
 
@@ -64,5 +66,12 @@ public final class OrderDetailActivity extends AppCompatActivity {
 
     public void backToHome(View v) {
         finish();
+    }
+
+    public void payOrder(View v) {
+        CreditCardInputDialogFragment f = new CreditCardInputDialogFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(f, PAY_ORDER_TAG)
+                .commit();
     }
 }

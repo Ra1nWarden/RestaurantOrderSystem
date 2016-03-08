@@ -5,7 +5,7 @@ package com.project.wifiordersystem.network;
  */
 public final class RESTClient {
 
-    private static final String BASE_URL = "http://192.168.0.114:8080/restaurant-web-service/rest";
+    private static final String BASE_URL = "http://10.42.0.1:8080/restaurant-web-service/rest";
     private static final String ORDERS_URL = "/orders";
     private static final String ORDER_URL = "/order";
     private static final String TABLE_URL = "/table";

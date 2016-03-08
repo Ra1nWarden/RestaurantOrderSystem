@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Dialog for reviewing all selected items.
  */
-public class SpecialInstructionDialogFragment extends DialogFragment {
+public final class SpecialInstructionDialogFragment extends DialogFragment {
 
     public static final String ORDER_LIST_KEY = "orderList";
     public static final String TOTAL_PRICE_KEY = "totalPrice";
